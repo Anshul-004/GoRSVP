@@ -40,7 +40,11 @@ const Page = () => {
       if (data.ok) {
         toast.success("Slot Reserved Successfully!");
         setSize(size + 1);
-      } else {
+      }
+      else {
+        if(status !== "authenticated") {
+          window.location.replace("/signin")
+        }
         toast.error("You Might Have Already Registered for this Event");
       }
     } catch (error) {
