@@ -35,16 +35,15 @@ const Page = () => {
   
   const handleRegisterClick = async (Timestamp) => {
     try {
-      
+      if(!session) {
+        window.location.replace("/signin")
+      }
       const data = await rsvpevent(Timestamp, email);
       if (data.ok) {
         toast.success("Slot Reserved Successfully!");
         setSize(size + 1);
       }
       else {
-        if(status !== "authenticated") {
-          window.location.replace("/signin")
-        }
         toast.error("You Might Have Already Registered for this Event");
       }
     } catch (error) {
