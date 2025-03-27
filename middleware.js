@@ -17,7 +17,10 @@ export function middleware(request) {
 
   // Redirect to sign-in Page if the user is not authenticated
   if (isProtectedPath && !token) {
-    return NextResponse.redirect(new URL("/signin", request.url));
+    const response = NextResponse.redirect(new URL("/signin", request.url));
+    response.cookies.delete("next-auth.session-token");
+    response.cookies.delete("__Secure-next-auth.session-token");
+    return response;
   }
 
   //won't let you go to signin Page if you are already signed in
