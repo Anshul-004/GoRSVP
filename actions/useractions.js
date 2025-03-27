@@ -53,8 +53,9 @@ export const saveevent = async (msg) => {
 //fetches all events from Event model. (Latest first)
 export const getallevents = async (msg) => {
   await connectDB();
-  const events = await Event.find({ isDeleted: false })
-    .sort({ Timestamp: -1 })
+  const currentDate = new Date();
+  const events = await Event.find({ isDeleted: false, eventDate: { $gte: currentDate } })
+    .sort({ eventDate: 1 })
     .limit(6)
     .lean();
   const plainEvents = events.map((event) => ({
