@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 const Page = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
     if (status !== "authenticated") {
@@ -128,6 +129,7 @@ const Page = () => {
                 onChange={handleChange}
                 required
                 type="date"
+                min={today}
                 className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-primary focus:outline-none text-black font-medium"
               />
             </div>
